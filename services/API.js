@@ -1,9 +1,13 @@
 import axios from 'axios';
+
+const domain = 'https://aliezsid-covid-server.herokuapp.com';
+
+  
 module.exports = {
   fetchAll(){
-    return axios.get('https://corona.lmao.ninja/all').then(data=>data.data);
+    return axios.get(`${domain}/all`).then(data=>data.data);
   },
   fetchByCountry(){
-    return axios.get('https://corona.lmao.ninja/countries').then(data=>data.data);
+    return axios.get(`${domain}/countries`).then(data=>data.data);
   }
 }
