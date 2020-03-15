@@ -1,203 +1,243 @@
-import Head from 'next/head'
+import { useEffect, useState } from "react"
+import API from '../services/API';
+import DynamicTable from '@atlaskit/dynamic-table';
+import Button, { ButtonGroup } from '@atlaskit/button';
+import Head from 'next/head';
 
-const Home = () => (
-  <div className="container">
-    <Head>
-      <title>Create Next App</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
+const allOverHeadData = {
+  cells: [
+    {
+      key: 'country',
+      isSortable:true,
+      content: 'Country'
+    },
+    {
+      key: 'cases',
+      isSortable:true,
+      content: 'Cases'
+    },
+    {
+      key: 'deaths',
+      isSortable:true,
+      content: 'Deaths'
+    },
+    {
+      key: 'recovered',
+      isSortable:true,
+      content: 'Recovered'
+    }
+  ]
+}
 
+const countryWiseHeadData = {
+  cells: [{
+    key: 'country',
+    isSortable:true,
+    content: 'Country'
+  },
+  {
+    key: 'cases',
+    isSortable:true,
+    content: 'Cases'
+  },
+  {
+    key: 'today-cases',
+    isSortable:true,
+    content: 'Cases Today'
+  },
+  {
+    key: 'deaths',
+    isSortable:true,
+    content: 'Deaths'
+  },
+  {
+    key: 'today-deaths',
+    isSortable:true,
+    content: 'Deaths Today'
+  },
+  {
+    key: 'critical',
+    isSortable:true,
+    content: 'Critical'
+  },
+  {
+    key: 'recovered',
+    isSortable:true,
+    content: 'Recovered'
+  }]
+};
+
+const formatRowData = (data) => {
+  return data.map(item => ({
+    cells: [
+      {
+        key: 'all',
+        content: 'All'
+      },
+      {
+        key: item.cases,
+        content: item.cases
+      },
+      {
+        key: item.deaths,
+        content: item.deaths
+      },
+      {
+        key:item.recovered,
+        content: item.recovered
+      }
+    ]
+  }));
+}
+
+
+const formatRowDataForCountry = (data) => {
+  return data.map(item => ({
+    cells: [
+      {
+        key: item.country.toLowerCase(),
+        content: item.country
+      },
+      {
+        key: item.cases,
+        content: item.cases
+      },
+      {
+        key: item.todayCases,
+        content: item.todayCases
+      },
+      {
+        key: item.deaths,
+        content: item.deaths
+      },
+      {
+        key: item.todayDeaths,
+        content: item.todayDeaths
+      },
+      {
+        key: item.critical,
+        content: item.critical
+      },
+      {
+        key: item.recovered,
+        content: item.recovered
+      }
+    ]
+  }));
+}
+
+const totalOverAllText = 'Covid 19 | Total Overall';
+const countryBasedText = 'Covid 19 | By Countries';
+
+const Home = () => {
+  const [overAllData, setOverAllData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [tabState, setTabState] = useState('all');
+  const [captionText, setCaptionText] = useState(totalOverAllText)
+  const [headData, setHeadData] = useState(allOverHeadData);
+  useEffect(
+    () => {
+      setLoading(() => true);
+      if (tabState === 'all') {
+        API.fetchAll()
+          .then(data => {
+            const formattedData = formatRowData([data]);
+            setOverAllData(() => formattedData);
+            setHeadData(() => allOverHeadData);
+            setCaptionText(() => totalOverAllText);
+            setLoading(() => false);
+          });
+      } else if (tabState === 'country') {
+        API.fetchByCountry()
+          .then(data => {
+            const formattedData = formatRowDataForCountry(data);
+            setOverAllData(() => formattedData);
+            setHeadData(() => countryWiseHeadData);
+            setCaptionText(() => countryBasedText);
+            setLoading(() => false);
+          });
+      }
+    }, [tabState])
+
+  return <React.Fragment>
     <main>
-      <h1 className="title">
-        Welcome to <a href="https://nextjs.org">Next.js!</a>
-      </h1>
-
-      <p className="description">
-        Get started by editing <code>pages/index.js</code>
-      </p>
-
-      <div className="grid">
-        <a href="https://nextjs.org/docs" className="card">
-          <h3>Documentation &rarr;</h3>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a href="https://nextjs.org/learn" className="card">
-          <h3>Learn &rarr;</h3>
-          <p>Learn about Next.js in an interactive course with quizzes!</p>
-        </a>
-
-        <a
-          href="https://github.com/zeit/next.js/tree/master/examples"
-          className="card"
-        >
-          <h3>Examples &rarr;</h3>
-          <p>Discover and deploy boilerplate example Next.js projects.</p>
-        </a>
-
-        <a
-          href="https://zeit.co/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          className="card"
-        >
-          <h3>Deploy &rarr;</h3>
-          <p>
-            Instantly deploy your Next.js site to a public URL with ZEIT Now.
-          </p>
-        </a>
+      <Head>
+        <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&family=Andika&display=swap" rel="stylesheet" />
+      </Head>
+      <nav className="flex just-center align-center">
+        <ButtonGroup appearance="subtle">
+          <Button onClick={() => setTabState('all')}> All Data</Button>
+          <Button onClick={() => setTabState('country')}>Country Wise Data</Button>
+        </ButtonGroup>
+      </nav>
+      <div className="table-wrapper">
+        <div className="max-table-width">
+          <DynamicTable
+            caption={captionText}
+            head={headData}
+            rows={overAllData}
+            rowsPerPage={15}
+            defaultPage={1}
+            loadingSpinnerSize="large"
+            isLoading={loading}
+            defaultSortOrder='ASC'
+            defaultSortKey='country'
+            isFixedSize
+          />
+        </div>
       </div>
-    </main>
-
-    <footer>
-      <a
-        href="https://zeit.co?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Powered by <img src="/zeit.svg" alt="ZEIT Logo" />
-      </a>
-    </footer>
-
-    <style jsx>{`
-      .container {
-        min-height: 100vh;
-        padding: 0 0.5rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-
-      main {
-        padding: 5rem 0;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-
-      footer {
-        width: 100%;
-        height: 100px;
-        border-top: 1px solid #eaeaea;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      footer img {
-        margin-left: 0.5rem;
-      }
-
-      footer a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      .title a {
-        color: #0070f3;
-        text-decoration: none;
-      }
-
-      .title a:hover,
-      .title a:focus,
-      .title a:active {
-        text-decoration: underline;
-      }
-
-      .title {
-        margin: 0;
-        line-height: 1.15;
-        font-size: 4rem;
-      }
-
-      .title,
-      .description {
-        text-align: center;
-      }
-
-      .description {
-        line-height: 1.5;
-        font-size: 1.5rem;
-      }
-
-      code {
-        background: #fafafa;
-        border-radius: 5px;
-        padding: 0.75rem;
-        font-size: 1.1rem;
-        font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-          DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-      }
-
-      .grid {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-
-        max-width: 800px;
-        margin-top: 3rem;
-      }
-
-      .card {
-        margin: 1rem;
-        flex-basis: 45%;
-        padding: 1.5rem;
-        text-align: left;
-        color: inherit;
-        text-decoration: none;
-        border: 1px solid #eaeaea;
-        border-radius: 10px;
-        transition: color 0.15s ease, border-color 0.15s ease;
-      }
-
-      .card:hover,
-      .card:focus,
-      .card:active {
-        color: #0070f3;
-        border-color: #0070f3;
-      }
-
-      .card h3 {
-        margin: 0 0 1rem 0;
-        font-size: 1.5rem;
-      }
-
-      .card p {
-        margin: 0;
-        font-size: 1.25rem;
-        line-height: 1.5;
-      }
-
-      @media (max-width: 600px) {
-        .grid {
-          width: 100%;
-          flex-direction: column;
+      <style jsx>
+        {
+          `
+        main{
+          min-height:100vh;
         }
-      }
-    `}</style>
 
-    <style jsx global>{`
-      html,
-      body {
-        padding: 0;
-        margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-          Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-      }
 
-      * {
-        box-sizing: border-box;
-      }
-    `}</style>
-  </div>
-)
+        .max-table-width{
+          max-width:800px;
+        }
 
-export default Home
+        .table-wrapper{
+            min-height:100vh;
+            padding-bottom:2.5em;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+          }
+
+
+      `
+        }
+      </style>
+      <style jsx global>
+        {`
+
+          body{
+            font-family: 'Andika', sans-serif;
+          }
+
+          h1,h2,h3,h4,h5,h6{
+            font-family: 'Amatic SC', cursive;
+          }
+
+          .flex{
+            display:flex;
+          }
+
+          .just-center{
+            justify-content:center;
+          }
+
+
+          .align-center{
+            align-items:center;
+          }
+
+        `}
+      </style>
+    </main>
+  </React.Fragment>
+}
+
+export default Home;
