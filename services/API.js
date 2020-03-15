@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const domain = 'https://aliezsid-covid-server.herokuapp.com';
+// const domain = 'http://localhost:52633';
 
   
 module.exports = {

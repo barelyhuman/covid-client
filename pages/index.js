@@ -141,7 +141,8 @@ const Home = () => {
       if (tabState === 'all') {
         API.fetchAll()
           .then(data => {
-            const formattedData = formatRowData([data]);
+            const toFormat = data?[data]:[];
+            const formattedData = formatRowData(toFormat);
             setOverAllData(() => formattedData);
             setHeadData(() => allOverHeadData);
             setCaptionText(() => totalOverAllText);
@@ -150,7 +151,7 @@ const Home = () => {
       } else if (tabState === 'country') {
         API.fetchByCountry()
           .then(data => {
-            const formattedData = formatRowDataForCountry(data);
+            const formattedData = formatRowDataForCountry(data||[]);
             setOverAllData(() => formattedData);
             setHeadData(() => countryWiseHeadData);
             setCaptionText(() => countryBasedText);
