@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const domain = 'https://aliezsid-covid-server.herokuapp.com';
-// const domain = 'http://localhost:52633';
+// const domain = 'https://aliezsid-covid-server.herokuapp.com';
+const domain = 'http://localhost:5000';
 
   
-module.exports = {
+export default {
   fetchAll(){
     return axios.get(`${domain}/all`).then(data=>data.data);
   },
