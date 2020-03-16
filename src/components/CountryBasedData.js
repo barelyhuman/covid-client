@@ -34,7 +34,7 @@ const CountryBasedData = (props) => {
 
       setAllData(formattedData);
       setData(formattedData);
-      setTableLoading(false);
+      setTimeout(()=>setTableLoading(false),5000);
     });
   }
 
@@ -50,10 +50,11 @@ const CountryBasedData = (props) => {
         return item[0].toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
       });
       setData(filteredData)
+      setPage(1);
     } else {
       setData(allData);
     }
-    setTableLoading(false);
+    setTimeout(()=>setTableLoading(false),5000);
   }, [allData, searchTerm]);
 
   const handlePageChange = (nextPage) => {
