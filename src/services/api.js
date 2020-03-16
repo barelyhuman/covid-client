@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const domain = 'https://aliezsid-covid-server.herokuapp.com';
-const domain = 'http://localhost:5000';
+const domain = 'https://aliezsid-covid-server.herokuapp.com';
+// const domain = 'http://localhost:5000';
 
   
 export default {
