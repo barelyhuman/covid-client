@@ -1,9 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Centered from './Centered';
-import {
-  Card,
-  StyledBody,
-} from "baseui/card";
 
 import API from '../services/api.js';
 
@@ -26,35 +21,41 @@ const OverallData = (props) => {
   }, []);
 
   return (
-    <Centered>
-      <div>
-        <Card>
-          <StyledBody>
-            <h3>Cases
-              <small><br />{data.cases}</small>
-            </h3>
-          </StyledBody>
-        </Card>
+    <div className="uk-container">
+      <div className="uk-margin" data-uk-grid>
+      <div className="uk-width-1-3@m uk-width-1-1@s">
+        <div className="uk-card uk-card-body">
+          <h3 className="uk-card-title">
+            Total Cases
+      </h3>
+          <p>
+            {data.cases}
+          </p>
+        </div>
       </div>
-      <div>
-        <Card>
-          <StyledBody>
-            <h3>Deaths
-              <small><br />{data.deaths}</small>
-            </h3>
-          </StyledBody>
-        </Card>
+      <div className="uk-width-1-3@m uk-width-1-1@s">
+        <div className="uk-card uk-card-body">
+          <h3 className="uk-card-title">
+            Total Deaths
+      </h3>
+          <p>
+            {data.deaths}
+          </p>
+        </div>
       </div>
-      <div>
-        <Card>
-          <StyledBody>
-            <h3>Recovered
-              <small><br />{data.recovered}</small>
-            </h3>
-          </StyledBody>
-        </Card>
+
+      <div className="uk-width-1-3@m uk-width-1-1@s">
+        <div className="uk-card uk-card-body">
+          <h3 className="uk-card-title">
+            Total Recovered
+      </h3>
+          <p>
+            {data.recovered}
+          </p>
+        </div>
       </div>
-    </Centered>
+    </div>
+    </div>
   )
 };
 
