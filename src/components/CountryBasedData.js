@@ -37,7 +37,7 @@ const CountryBasedData = (props) => {
 
       setAllData(formattedData);
       setData(formattedData);
-      setTimeout(() => setTableLoading(false), 5000);
+      setTimeout(()=>setTableLoading(false),1000);
     });
   }
 
@@ -57,7 +57,7 @@ const CountryBasedData = (props) => {
     } else {
       setData(allData);
     }
-    setTimeout(() => setTableLoading(false), 5000);
+    setTimeout(()=>setTableLoading(false),1000);
   }, [allData, searchTerm]);
 
   const handlePageChange = (nextPage) => {
