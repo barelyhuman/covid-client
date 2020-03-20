@@ -2,11 +2,6 @@ import React from 'react';
 import OverallData from './components/OverallData';
 import CountryBasedData from './components/CountryBasedData';
 
-import 'uikit/dist/css/uikit.min.css';
-import 'uikit/dist/js/uikit.min.js';
-import 'uikit/dist/js/uikit-icons.min.js';
-
-
 export default function Hello() {
   return (
     <div className="uk-base uk-background-default">
