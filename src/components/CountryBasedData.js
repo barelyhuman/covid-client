@@ -20,6 +20,9 @@ const CountryBasedData = (props) => {
   const fetchData = () => {
     setTableLoading(true);
     API.fetchByCountry().then(data => {
+      if (!data) {
+        data = [];
+      }
       const formattedData = data.map(item => {
         return [
           item.country,
@@ -34,7 +37,7 @@ const CountryBasedData = (props) => {
 
       setAllData(formattedData);
       setData(formattedData);
-      setTimeout(()=>setTableLoading(false),5000);
+      setTimeout(() => setTableLoading(false), 5000);
     });
   }
 
@@ -54,7 +57,7 @@ const CountryBasedData = (props) => {
     } else {
       setData(allData);
     }
-    setTimeout(()=>setTableLoading(false),5000);
+    setTimeout(() => setTableLoading(false), 5000);
   }, [allData, searchTerm]);
 
   const handlePageChange = (nextPage) => {

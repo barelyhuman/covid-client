@@ -13,12 +13,15 @@ const OverallData = (props) => {
 
   const fetchData = () => {
     API.fetchAll().then(data => {
+      if (!data) {
+        data = {};
+      }
       setData(data);
     });
   };
 
   useEffect(() => {
-    setInterval(()=>fetchData(),61000);
+    setInterval(() => fetchData(), 61000);
     fetchData();
   }, []);
 
@@ -28,7 +31,7 @@ const OverallData = (props) => {
         <Card>
           <StyledBody>
             <h3>Cases
-              <small><br/>{data.cases}</small>
+              <small><br />{data.cases}</small>
             </h3>
           </StyledBody>
         </Card>
@@ -37,7 +40,7 @@ const OverallData = (props) => {
         <Card>
           <StyledBody>
             <h3>Deaths
-              <small><br/>{data.deaths}</small>
+              <small><br />{data.deaths}</small>
             </h3>
           </StyledBody>
         </Card>
@@ -46,7 +49,7 @@ const OverallData = (props) => {
         <Card>
           <StyledBody>
             <h3>Recovered
-              <small><br/>{data.recovered}</small>
+              <small><br />{data.recovered}</small>
             </h3>
           </StyledBody>
         </Card>
