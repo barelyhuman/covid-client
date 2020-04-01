@@ -32,8 +32,10 @@ const CountryBasedData = (props) => {
       });
       setData(filteredData)
       setPage(1);
+      setTotalPages(Math.round(filteredData.length/limit))
     } else {
       setData(allData);
+      setTotalPages(Math.round(allData.length/limit));
     }
   }, [allData, searchTerm]);
 
