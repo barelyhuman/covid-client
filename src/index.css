@@ -1,20 +1,8 @@
-body {
-  margin: 0;
-  font-family: 'Merriweather', serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@import url('https://mnmlcss.js.org/mnml.css');
+@import url('https://css.gg/chevron-left.css');
+@import url('https://css.gg/chevron-right.css');
 
-html,body,#root{
-  height:100%;
-  width:100%
-}
 
-h1,h2,h3,h4,h5,h6{
-  font-family: 'Lato',sans-serif;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.cursor-pointer{
+  cursor: pointer;
 }
