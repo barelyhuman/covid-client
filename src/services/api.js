@@ -5,6 +5,9 @@ const domain = 'https://aliezsid-covid-server.herokuapp.com';
 
   
 export default {
+  ping(){
+    return axios.get(`${domain}/ping`).then(data=>data.data);
+  },
   fetchAll(){
     return axios.get(`${domain}/all`).then(data=>data.data);
   },

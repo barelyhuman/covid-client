@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { formatNumber } from '../lib/format-number';
 import API from '../services/api';
 
 const CountryBasedData = (props) => {
@@ -74,44 +75,44 @@ const CountryBasedData = (props) => {
               <div className="flex flex-wrap justify-space-between align-center">
                 <div className="m-sm">
                   <p>
-                    <strong>Cases </strong>
+                    <strong className="text-secondary">Cases </strong>
                     <br />
-                    {dataItem.cases}
+                    {formatNumber(dataItem.cases)}
                   </p>
                 </div>
                 <div className="m-sm">
                   <p>
-                    <strong>Cases Today </strong>
+                    <strong className="text-secondary">Cases Today </strong>
                     <br />
-                    {dataItem.todayCases}
+                    {formatNumber(dataItem.todayCases)}
                   </p>
                 </div>
                 <div className="m-sm">
                   <p>
-                    <strong>Deaths </strong>
+                    <strong className="text-secondary">Deaths </strong>
                     <br />
-                    {dataItem.deaths}
+                    {formatNumber(dataItem.deaths)}
                   </p>
                 </div>
                 <div className="m-sm">
                   <p>
-                    <strong>Deaths Today </strong>
+                    <strong className="text-secondary">Deaths Today </strong>
                     <br />
-                    {dataItem.todayDeaths}
+                    {formatNumber(dataItem.todayDeaths)}
                   </p>
                 </div>
                 <div className="m-sm">
                   <p>
-                    <strong>Recovered </strong>
+                    <strong className="text-secondary">Recovered </strong>
                     <br />
-                    {dataItem.recovered}
+                    {formatNumber(dataItem.recovered)}
                   </p>
                 </div>
                 <div className="m-sm">
                   <p>
-                    <strong>Critical </strong>
+                    <strong className="text-secondary">Critical </strong>
                     <br />
-                    {dataItem.critical}
+                    {formatNumber(dataItem.critical)}
                   </p>
                 </div>
               </div>
@@ -120,7 +121,7 @@ const CountryBasedData = (props) => {
           </div>
         ))}
       </div>
-      <div>
+      <div className="mt-2">
         <div className="flex align-center justify-center">
           <div
             className="m-sm cursor-pointer"

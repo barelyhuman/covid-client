@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { formatNumber } from '../lib/format-number.js';
 
 import API from '../services/api.js';
 
@@ -24,20 +25,20 @@ const OverallData = (props) => {
       <div className="">
         <div className="">
           <h3 className="">Total Cases</h3>
-          <p>{data.cases}</p>
+          <p>{formatNumber(data.cases)}</p>
         </div>
       </div>
       <div className="">
         <div className="">
           <h3 className="">Total Deaths</h3>
-          <p>{data.deaths}</p>
+          <p>{formatNumber(data.deaths)}</p>
         </div>
       </div>
 
       <div className="">
         <div className="">
           <h3 className="">Total Recovered</h3>
-          <p>{data.recovered}</p>
+          <p>{formatNumber(data.recovered)}</p>
         </div>
       </div>
     </div>

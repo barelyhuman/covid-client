@@ -1,8 +1,324 @@
-@import url('https://mnmlcss.js.org/mnml.css');
 @import url('https://css.gg/chevron-left.css');
 @import url('https://css.gg/chevron-right.css');
 
-
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer;
+}
+
+/* Resets */
+
+:root {
+  --white: #eee;
+  --black: #222;
+  --green: #a3be8c;
+  --accent: #f0b447;
+  --anchor-normal: #999;
+  --anchor-active: #222;
+  --bg: #fff;
+  --bg-light: #efefef;
+  --bg-lighter: #ddd;
+  --fg: #222;
+  --fg-light: #333;
+  --fg-lighter: #555;
+  --shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  --error: #ff3e3e;
+  --blur: rgba(0, 0, 0, 0.5);
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Nanum Gothic', -apple-system, BlinkMacSystemFont, Segoe UI,
+    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+a {
+  color: #4064f2;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+p,
+li {
+  font-size: 16px;
+  line-height: 30px;
+}
+
+footer {
+  min-height: 32px;
+  padding: 16px;
+}
+
+body[data-dark-mode='dark'] input {
+  background: #191919;
+  color: var(--fg);
+}
+
+/* Classes */
+
+.container-boundaries {
+  padding: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.container {
+  min-height: 85vh;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.h-50 {
+  height: 50%;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  align-items: center;
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+.justify-space-between {
+  justify-content: space-between;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.m-0 {
+  margin: 0px;
+}
+
+.m-1 {
+  margin: 8px;
+}
+
+.m-2 {
+  margin: 16px;
+}
+
+.mt-1 {
+  margin-top: 8px;
+}
+
+.mt-2 {
+  margin-top: 16px;
+}
+
+.mb-1 {
+  margin-bottom: 8px;
+}
+
+.mb-2 {
+  margin-bottom: 16px;
+}
+
+.mr-1 {
+  margin-right: 8px;
+}
+
+.mr-2 {
+  margin-right: 16px;
+}
+
+.ml-1 {
+  margin-left: 8px;
+}
+
+.ml-2 {
+  margin-left: 16px;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
+.p-0 {
+  padding: 0px;
+}
+
+.p-1 {
+  padding: 8px;
+}
+
+.p-2 {
+  padding: 16px;
+}
+
+.pb-1 {
+  padding-bottom: 8px;
+}
+
+.pb-2 {
+  padding-bottom: 16px;
+}
+
+.f-small {
+  font-size: 14px;
+}
+
+.f-normal {
+  font-size: 16px;
+}
+
+.f-large {
+  font-size: 36px;
+}
+
+.fw-normal {
+  font-weight: 400;
+}
+
+.fw-bold {
+  font-weight: 700;
+}
+
+.bg-default {
+  background-color: var(--bg);
+}
+
+.bg-light {
+  background-color: var(--bg-light);
+}
+
+.bg-lighter {
+  background-color: var(--bg-lighter);
+}
+
+.no-wrap {
+  white-space: nowrap;
+}
+
+.f-right {
+  float: right;
+}
+
+.f-left {
+  float: left;
+}
+
+.rounded-sm {
+  border-radius: 4px;
+}
+
+.rounded-md {
+  border-radius: 8px;
+}
+
+.rounded-circle {
+  border-radius: 50%;
+}
+
+.text-teritiary {
+  color: var(--fg-lighter);
+}
+
+.text-secondary {
+  color: var(--fg-light);
+}
+
+.text-primary {
+  color: var(--fg);
+}
+
+.text-error {
+  color: var(--error);
+}
+
+.text-danger {
+  color: var(--error);
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.h-100-vh {
+  height: 100vh;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.text-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bg-danger {
+  background-color: var(--error);
+}
+
+.text-white {
+  color: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    --bg: #222;
+    --bg-light: #272727;
+    --bg-lighter: #333;
+    --anchor-normal: #666;
+    --anchor-active: #eee;
+    --fg: #eee;
+    --fg-light: #aaa;
+    --fg-lighter: #999;
+    --shadow: rgb(15 17 21 / 20%) 0px 3px 6px 0px;
+  }
 }
